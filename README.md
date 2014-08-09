@@ -10,7 +10,7 @@
 
 [Ansible](http://www.ansible.com) is a tool for automating server provisioning and configuration. [Vagrant](http://www.vagrantup.com) is a front-end for setting up virtual machines on your local desktop. Together, they can be used to specify and run software development environments. There are a few dependencies: these instructions assume you have ruby, python, git, ansible, vagrant, and the latest version of Oracle's [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-The very first time you start this VM, it’s going to download a base CentOS server image, install the necessary tools and then checkout the Sakai source code. Once it’s underway, this is a good time to go get lunch. The source code is close to 500MiB, and Subversion takes its sweet time. You can check on how it's doing from time to time by opening a second terminal and measuring the size of the source directory, like this: `du -hs sakai-ansible/sakai-src`
+The very first time you start this VM, it’s going to download a base CentOS server image, install the necessary tools and then checkout the Sakai source code. Once it’s underway, this is a good time to go get lunch. The source code is close to 540MiB, and Subversion takes its sweet time. You can check on how it's doing from time to time by opening a second terminal and measuring the size of the source directory, like this: `du -hs sakai-ansible/sakai-src`
 
 When it's finished, you can connect to the new VM like this:
 
@@ -43,7 +43,7 @@ You can make any tweaks you want, then run this command (from the `sakai-ansible
 
     vagrant provision
 
-> NOTE: every time you provision, the `source` role wants to do an `svn update`. This is time-consuming and you probably don't want to keep doing it. To put this update on ice, comment out the `source` role from the `dev-sakai.yml` file before you run `vagrant provision`.
+> NOTE: if `/vagrant/sakai-src` exists, the provisioner will skip the subversion checkout/update.
 
 # Build and Run
 Once the VM is running, it's ready to build and deploy Sakai. Assuming you've already logged in with `vagrant ssh`:

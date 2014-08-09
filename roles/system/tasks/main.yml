@@ -1,3 +1,5 @@
-- hostname: name=localhost
+- name: set hostname
+  hostname: name=localhost
 
-- copy: src=sudoers dest=/etc/sudoers validate='visudo -cf %s' owner=root group=root mode=0440
+- name: set sudoers file
+  copy: src=sudoers dest=/etc/sudoers validate='visudo -cf %s' owner=root group=root mode=0440

@@ -32,8 +32,10 @@
 - name: unarchive initial sakai database
   unarchive: src=initial_sakai.sql.tgz dest=/tmp
 
-- mysql_db: name=sakai login_user=root login_password= encoding=utf8 state=present
+- name: create mysql database for sakai
+  mysql_db: name=sakai login_user=root login_password= encoding=utf8 state=present
   notify:
     - initialize schema
 
-- mysql_user: name=sakai password=ironchef host=127.0.0.1 priv=sakai.*:ALL state=present
+- name: create sakai database user
+  mysql_user: name=sakai password=ironchef host=127.0.0.1 priv=sakai.*:ALL state=present

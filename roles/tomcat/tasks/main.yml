@@ -4,6 +4,8 @@
 - name: extract tomcat
   command: tar xzf /home/vagrant/apache-tomcat-7.0.55.tar.gz chdir=/opt creates=/opt/apache-tomcat-7.0.55
 - file: path=/opt/tomcat-sakai/sakai state=directory
+- file: path=/opt/tomcat-sakai/conf state=directory
+- file: path=/opt/tomcat-sakai/bin state=directory
 - command: mv /opt/apache-tomcat-7.0.55 /opt/tomcat-sakai creates=/opt/tomcat-sakai
 
 - name: copy configuration

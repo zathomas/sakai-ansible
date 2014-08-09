@@ -1,6 +1,13 @@
-- name: ensure latest subversion source control
+- name: install subversion yum repo
   copy: src=wandisco-svn.repo dest=/etc/yum.repos.d
-- yum: pkg=subversion state=latest
 
-- name: Checkout Sakai source
-  subversion: repo=https://source.sakaiproject.org/svn/sakai/trunk dest=/vagrant/sakai-src
+- name: ensure latest subversion source control
+  yum: pkg=subversion state=latest
+
+- name: check for existing source checkout
+  shell: "[ -d /vagrant/sakai-src ] && echo 'Found' || echo ''"
+  register: checkedout_already
+
+- name: checkout Sakai source
+  subversion: repo=https://source.sakaiproject.org/svn/sakai/trunk dest=/vagrant/sakai-src force=no
+  when: (not checkedout_already.stdout)
