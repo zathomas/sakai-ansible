@@ -9,7 +9,7 @@
     # - { role: firewall, when: not using_vagrant }
     - system
     - jdk
-    #- source
+    - source
     - maven
     - tomcat
     - mysql
