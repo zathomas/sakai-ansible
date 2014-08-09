@@ -1,0 +1,14 @@
+- name: download maven
+  get_url: url=http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.2.2/binaries/apache-maven-3.2.2-bin.tar.gz dest=/home/vagrant/apache-maven-3.2.2-bin.tar.gz
+
+- name: extract maven
+  command: tar xzf /home/vagrant/apache-maven-3.2.2-bin.tar.gz chdir=/opt creates=/opt/apache-maven-3.2.2
+
+- name: place maven on execution path
+  file: path=/home/vagrant/bin owner=vagrant group=vagrant state=directory
+- file: src=/opt/apache-maven-3.2.2/bin/mvn dest=/home/vagrant/bin/mvn owner=vagrant group=vagrant state=link
+
+- name: copy maven settings
+  file: path=/home/vagrant/.m2 owner=vagrant group=vagrant state=directory
+- copy: src=settings.xml dest=/home/vagrant/.m2
+- copy: src=maven.sh dest=/etc/profile.d owner=root group=root mode=0644

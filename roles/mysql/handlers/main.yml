@@ -1,0 +1,5 @@
+- name: restart mysql
+  service: name=mysql state=restarted
+
+- name: initialize schema
+  mysql_db: name=sakai login_user=root login_password= login_port=3306 state=import target=/tmp/initial_sakai.sql

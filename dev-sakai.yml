@@ -1,0 +1,15 @@
+---
+- hosts: sakaidev
+  sudo: yes
+  vars:
+    using_vagrant: false
+
+  roles:
+    # you can make a role depend on whether we're using vagrant
+    # - { role: firewall, when: not using_vagrant }
+    - system
+    - jdk
+    #- source
+    - maven
+    - tomcat
+    - mysql

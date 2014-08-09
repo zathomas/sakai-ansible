@@ -1,0 +1,39 @@
+- name: get Percona repo
+  copy: src=Percona.repo dest=/etc/yum.repos.d/Percona.repo owner=root group=root mode=0644
+
+- name: ensure libselinux-python installed
+  yum: pkg=libselinux-python state=installed
+
+- copy: src=RPM-GPG-KEY-percona dest=/etc/pki/rpm-gpg/ owner=root group=root mode=0644
+
+- name: get Percona server
+  yum: pkg=Percona-Server-server-51 state=present
+
+- file: path=/usr/share/java state=directory owner=root group=root mode=0755
+
+- copy: src=my.cnf dest=/etc/my.cnf owner=root group=vagrant mode=0644
+  notify:
+    - restart mysql
+
+- name: get mysql connector
+  get_url: url=http://search.maven.org/remotecontent?filepath=mysql/mysql-connector-java/5.1.31/mysql-connector-java-5.1.31.jar dest=/usr/share/java/mysql-connector-java-5.1.31.jar
+
+- name: establish mysql-connector symbolic link
+  file: src=/usr/share/java/mysql-connector-java-5.1.31.jar dest=/usr/share/java/mysql-connector-java.jar owner=root group=root state=link
+
+- file: path=/var/lib/mysql mode=0755 state=directory owner=mysql group=mysql
+
+- name: ensure mysql running
+  service: name=mysql state=started
+
+- name: ensure we have MySQL-python
+  yum: pkg=MySQL-python state=present
+
+- name: unarchive initial sakai database
+  unarchive: src=initial_sakai.sql.tgz dest=/tmp
+
+- mysql_db: name=sakai login_user=root login_password= encoding=utf8 state=present
+  notify:
+    - initialize schema
+
+- mysql_user: name=sakai password=ironchef host=127.0.0.1 priv=sakai.*:ALL state=present

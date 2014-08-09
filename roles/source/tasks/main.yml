@@ -1,0 +1,6 @@
+- name: ensure latest subversion source control
+  copy: src=wandisco-svn.repo dest=/etc/yum.repos.d
+- yum: pkg=subversion state=latest
+
+- name: Checkout Sakai source
+  subversion: repo=https://source.sakaiproject.org/svn/sakai/trunk dest=/vagrant/sakai-src

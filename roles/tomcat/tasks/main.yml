@@ -1,0 +1,17 @@
+- name: download tomcat
+  get_url: url=http://www.gtlib.gatech.edu/pub/apache/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz dest=/home/vagrant/apache-tomcat-7.0.55.tar.gz
+
+- name: extract tomcat
+  command: tar xzf /home/vagrant/apache-tomcat-7.0.55.tar.gz chdir=/opt creates=/opt/apache-tomcat-7.0.55
+- file: path=/opt/tomcat-sakai/sakai state=directory
+- command: mv /opt/apache-tomcat-7.0.55 /opt/tomcat-sakai creates=/opt/tomcat-sakai
+
+- name: copy configuration
+  copy: src=sakai.properties dest=/opt/tomcat-sakai/sakai/sakai.properties
+
+- copy: src=catalina.properties dest=/opt/tomcat-sakai/conf/catalina.properties
+- copy: src=setenv.sh dest=/opt/tomcat-sakai/bin/setenv.sh
+- copy: src=tomcat dest=/etc/init.d/tomcat
+
+- name: ensure tomcat-sakai file ownership
+  file: path=/opt/tomcat-sakai owner=vagrant group=vagrant recurse=yes
