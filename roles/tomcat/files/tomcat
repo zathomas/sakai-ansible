@@ -10,17 +10,15 @@
 # Provides: $tomcat
 ### END INIT INFO
 
-JAVA_HOME=/usr/java/latest
+JAVA_HOME=/etc/alternatives/java_sdk
 export JAVA_HOME
 TOMCAT_HOME=/opt/tomcat-sakai/bin
 START_TOMCAT=$TOMCAT_HOME/startup.sh
-STOP_TOMCAT=$TOMCAT_HOME/shutdown.sh
 
 # Source function library.
 . /etc/init.d/functions
 
 [ -f $START_TOMCAT ] || exit 0
-[ -f $STOP_TOMCAT ] || exit 0
 
 RETVAL=0
 
@@ -32,13 +30,13 @@ ulimit -Sn 4096
 
 start() {
         echo -n $"Starting Tomcat server: "
-        daemon su -c $START_TOMCAT sakai
+        daemon su -c $START_TOMCAT vagrant
         echo
         return $RETVAL
 }
 stop() {
         echo -n $"Shutting down Tomcat server: "
-        daemon su -c $STOP_TOMCAT sakai
+        kill `jps | grep Bootstrap | cut -f1 -d' '` > /dev/null 2>&1
         echo
         return $RETVAL
 }

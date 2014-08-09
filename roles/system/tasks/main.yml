@@ -1,6 +1,3 @@
-- hostname: name={{ hostname }}.sakaiproject.org
-
-- name: establish our /etc/hosts file
-  template: src=hosts.j2 dest=/etc/hosts owner=bin group=wheel mode=0644
+- hostname: name=localhost
 
 - copy: src=sudoers dest=/etc/sudoers validate='visudo -cf %s' owner=root group=root mode=0440

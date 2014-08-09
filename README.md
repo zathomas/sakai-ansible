@@ -26,7 +26,7 @@ The system you'll end up with is very close to what's described in the [develope
 * MySQL for the dabase backend
 * Everything else that usually comes with a CentOS 6 server
 
-One thing I _didn't_ bother to include is Eclipse and the extras that you'd use with it, because Vagrant creates headless machines, and any IDE that you decide to use will still be run from your host machine.
+One thing I _didn't_ bother to include is Eclipse and the extras that you'd use with it, because Vagrant creates headless machines, and any IDE that you decide to use will still be run from your host machine (trade secret: [IntelliJ IDEA](http://www.jetbrains.com/idea/download/) is what you should be using).
 
 All the initial configuration is done for you. The files that contribute to the config are in the `files` directories beneath each role in the `roles` directory.
 
