@@ -1,9 +1,9 @@
 - name: download tomcat
-  get_url: url=http://www.gtlib.gatech.edu/pub/apache/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz dest=/home/vagrant/apache-tomcat-7.0.55.tar.gz
+  get_url: url=http://www.gtlib.gatech.edu/pub/apache/tomcat/tomcat-7/v7.0.57/bin/apache-tomcat-7.0.57.tar.gz dest=/home/vagrant/apache-tomcat-7.0.57.tar.gz
 
 - name: extract tomcat
-  command: tar xzf /home/vagrant/apache-tomcat-7.0.55.tar.gz chdir=/opt creates=/opt/apache-tomcat-7.0.55
-- command: mv /opt/apache-tomcat-7.0.55 /opt/tomcat-sakai creates=/opt/tomcat-sakai
+  command: tar xzf /home/vagrant/apache-tomcat-7.0.57.tar.gz chdir=/opt creates=/opt/apache-tomcat-7.0.57
+- command: mv /opt/apache-tomcat-7.0.57 /opt/tomcat-sakai creates=/opt/tomcat-sakai
 - file: path=/opt/tomcat-sakai/sakai state=directory
 - file: path=/opt/tomcat-sakai/conf state=directory
 - file: path=/opt/tomcat-sakai/bin state=directory
